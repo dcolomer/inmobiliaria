@@ -60,27 +60,23 @@ A continuación se describe qué datos contiene cada una de las tablas:
 | CANCELADO | Indica si el cliente ha anulado el pedido.                                                       | BOOLEAN                  |
  
 **CAJA: Lleva el control de todas las operaciones de entrada y salida de dinero de la agencia.**
-
-| **Campo** | **Descripción**                                               | **Tipo**     |
-|-----------|---------------------------------------------------------------|--------------|
-| N_PISO    | Clave primaria de la tabla. Contiene el código del piso.      | SERIAL(*)    |
-| DIR       | Dirección del piso.                                           | VARCHAR(50)  |
-| LOC       | Localidad del piso.                                           | VARCHAR(50)  |
-| PISCINA   | Cierto si el piso tiene piscina.                              | BOOLEAN      |
-| NIF_PROP  | NIF del propietario del piso. Clave externa de la tabla PROP. | VARCHAR(10)  |
-| PRECIO    | Precio diario del piso que debe pagar el cliente.             | DECIMAL(6,2) |
-| COMISION  | Porcentaje del precio que la agencia retiene como comisión.   | DECIMAL(5,2) | 
+| **Campo** |                                              **Descripción**                                             |        **Tipo**       |
+|:---------:|:--------------------------------------------------------------------------------------------------------:|:---------------------:|
+| N_FACTURA | Clave primaria de la tabla. Contiene el código de la factura.                                            | SERIAL                |
+| OPERACION | Codifica el tipo de operación realizada. Los códigos pueden ser: A, B, C, D y E (ver detalle más abajo). | CHAR(1)               |
+| N_PEDIDO  | Código del pedido. Clave externa de la tabla PEDIDO.                                                     | BIGINT UNSIGNED  NULL |
+| IMPORTE   | Dinero implicado en la operación.                                                                        | DECIMAL(10,2)         |
+| PAGADO    | Indica si el pedido ha sido pagado al propietario del piso.                                              | BOOLEAN               |
+| DIA       | Día en que se hace efectiva la operación (no necesariamente el de hoy).                                  | DATE                  |
 
 **Códigos de operación:**
-| **Campo** | **Descripción**                                               | **Tipo**     |
-|-----------|---------------------------------------------------------------|--------------|
-| N_PISO    | Clave primaria de la tabla. Contiene el código del piso.      | SERIAL(*)    |
-| DIR       | Dirección del piso.                                           | VARCHAR(50)  |
-| LOC       | Localidad del piso.                                           | VARCHAR(50)  |
-| PISCINA   | Cierto si el piso tiene piscina.                              | BOOLEAN      |
-| NIF_PROP  | NIF del propietario del piso. Clave externa de la tabla PROP. | VARCHAR(10)  |
-| PRECIO    | Precio diario del piso que debe pagar el cliente.             | DECIMAL(6,2) |
-| COMISION  | Porcentaje del precio que la agencia retiene como comisión.   | DECIMAL(5,2) | 
+| **Campo** |                                              **Descripción**                                             |
+|:---------:|:--------------------------------------------------------------------------------------------------------:|
+| A         | Pago de un nuevo pedido del cliente a la agencia (el 50% del total)                                      |
+| B         | Pago del resto de un pedido del cliente a la agencia (el 50% restante)                                   |
+| C         | El cliente ha anulado el pedido. Sólo se puede anular un pedido si no está totalmente pagado.            |
+| D         | La agencia paga al propietario del piso el importe del alquiler menos el porcentaje de la comisión que se gana la agencia. No se puede pagar al propietario hasta que el cliente haya pagado la totalidad del pedido (operación tipo B). El importe para este tipo de pedidos se registrará en negativo.              |
+| E         | Los pedidos con este código no reflejan ningún pago, pues simulan el balance final del día en contabilidad. Una vez que se registra un pedido con este código de operación no se permite ninguna otra operación de caja para esa fecha.                                       |
 
 Diagrama E/R (Entidad/Relación)
 

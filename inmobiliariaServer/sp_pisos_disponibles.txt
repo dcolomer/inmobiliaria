@@ -1,0 +1,35 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pisos_disponibles`(IN lle DATE, IN par DATE)
+BEGIN
+
+
+-- Creamos una tabla temporal de solo un campo
+-- para almacenar el resultado
+
+        CREATE TEMPORARY TABLE IF NOT EXISTS pisos_disp_tmp (n_piso INT);
+        DELETE FROM pisos_disp_tmp;
+
+-- El resultado lo forman los pisos que no están en la tabla de pedidos
+-- junto aquellos que, aunque sí están, no se ven afectados por el intervalo de fechas
+-- especificado, que serán: aquellos cuyo alquiler termina antes de nuestra llegada más
+-- aquellos cuyo alquiler comienza después de nuestra partida
+
+
+        INSERT INTO pisos_disp_tmp
+                SELECT n_piso FROM piso WHERE n_piso NOT IN
+                       (SELECT distinct n_piso FROM pedido)
+           UNION
+                SELECT pi.n_piso FROM piso pi WHERE pi.n_piso NOT IN
+                       (SELECT DISTINCT n_piso FROM pedido WHERE
+                                (llegada=lle AND partida=par) OR
+                                (llegada>=lle AND partida<=par) OR
+                                (llegada<=lle AND partida>=par) OR
+                                (llegada<=lle AND partida>lle AND partida<=par) OR
+                                (llegada>=lle AND llegada<par AND partida>=par));
+
+-- Obtenemos los resultados
+        SELECT p.n_piso, p.dir, p.loc, p.piscina, p.nif_prop, p.precio, p.comision
+        FROM piso p INNER JOIN pisos_disp_tmp t
+        ON p.n_piso=t.n_piso ORDER BY p.n_piso;
+
+
+END

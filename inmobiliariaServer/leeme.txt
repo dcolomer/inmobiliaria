@@ -1,0 +1,70 @@
+INSTRUCCIONES PARA LA EJECUCI�N
+
+1) Programa Servidor
+-----------------------
+
+1.1) Configuracion previa
+----------------------------
+
+Trabajamos con nombres de host para que el programa funcione de manera transparente a las IPs. Para ello, el
+programa servidor se ejecutara en una maquina llamada www.servidorlogico.org.
+Por ejemplo, si el servidor fisico tiene la IP 192.168.1.12, añadimos la siguiente linea al archivo 'host' 
+ubicado en C:\WINDOWS\system32\drivers\etc:
+
+192.168.1.12	www.servidorlogico.org
+
+1.1.1) Establecer la informacion de conexion con la base de datos
+---------------------------------------------------------------------
+
+En inmobiliariaServer\bin se encuentra el fichero 'configDb.xml', el cual describe el driver JDBC, la 
+URL de conexion con la BD, asi como las credenciales para el acceso y ciertos valores para el DataSource 
+y el pool de conexiones.
+
+A continuacion se muestra su contenido:
+
+configDb.xml
+------------
+
+<config>
+	<dbDriverName>com.mysql.jdbc.Driver</dbDriverName>
+	<dbUser>root</dbUser>
+	<dbPassword>root</dbPassword>
+	<dbURI><![CDATA[jdbc:mysql://localhost/inmobiliaria?
+ useUnicode=true&characterEncoding=UTF-8&autoReconnect=true]]></dbURI>
+	<dbPoolMinSize>5</dbPoolMinSize>
+	<dbPoolMaxSize>15</dbPoolMaxSize>
+</config>
+
+1.1.2) Establecer la informacion para el EndPoint (publicar el servicio Web)
+---------------------------------------------------------------------------------
+
+En inmobiliariaServer\bin se encuentra el fichero 'host.properties', el cual permite establecer el
+URL donde se publicara el servicio Web. Esta informacion es fundamental, tanto en tiempo de diseño y 
+mantenimiento como en tiempo de ejecucion.
+
+-En tiempo de diseño permitira que la herramienta 'wsimport' del JDK puede crear el codigo stub (auxiliar)
+para la aplicacion cliente y asi poder compilar correctamente.
+
+-En tiempo de ejecucion permite localizar al servicio Web para que atienda las invocaciones remotas de los
+programas cliente.
+
+A continuacion se muestra su contenido:
+
+host.properties
+---------------
+endpoint=http://www.servidorlogico.org:8080/WebServices/inmob
+
+
+1.2) Arranque del servidor
+-----------------------------
+
+En el directorio inmobiliariaServer\bin tenemos el fichero 'run.bat'. Ejecutaremos este fichero para iniciar
+la aplicacion servidora con todas sus dependencias especificadas.
+
+Su contenido es el siguiente:
+
+run.bat
+-------
+
+java -cp .;..\lib\commons-dbcp-1.4.jar;..\lib\commons-dbutils-1.3.jar;..\lib\commons-lang-2.5.jar;..\lib\commons-logging-1.1.1.jar;..\lib\commons-pool-1.5.4.jar;..\lib\jdom.jar;..\lib\log4j-1.2.16.jar;..\lib\mysql-connector-java-5.1.12-bin.jar gui.Servidor 
+pause

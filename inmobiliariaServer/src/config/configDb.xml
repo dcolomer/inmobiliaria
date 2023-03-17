@@ -1,0 +1,9 @@
+<config>
+	<dbDriverName>com.mysql.jdbc.Driver</dbDriverName>
+	<dbUser>root</dbUser>
+	<dbPassword>root</dbPassword>
+	<dbURI><![CDATA[jdbc:mysql://localhost/inmobiliaria?
+ useUnicode=true&characterEncoding=UTF-8&autoReconnect=true]]></dbURI>
+	<dbPoolMinSize>5</dbPoolMinSize>
+	<dbPoolMaxSize>15</dbPoolMaxSize>
+</config>

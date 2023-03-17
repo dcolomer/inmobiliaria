@@ -1,0 +1,12 @@
+La siguiente informacion aplica a tiempo de desarrollo/mantenimiento, por ejemplo cuando hemos agregado nuevos
+metodos remotos o hemos modificado la signatura de los existentes.
+
+-Para generar los 'stubs' del servidor nos dirigimos al directorio inmobiliariaServidor\bin y ejecutamos:
+
+wsgen -cp . servicios.ServiciosInmobiliariaImpl
+
+Esto creara todas las clases stub en el paquete 'jaxws', dentro del paquete 'servicios'.
+
+Ahora ya podemos ejecutar el programa (fichero run.bat) y realizar la generacion de los 'stub' en el cliente
+para que se "vean" desde alli los nuevos metodos remotos y/o los metodos existentes a los que se les ha cambiado
+la signatura.

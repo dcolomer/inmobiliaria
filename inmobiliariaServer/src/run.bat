@@ -1,0 +1,2 @@
+java -cp .;..\lib\commons-dbcp-1.4.jar;..\lib\commons-dbutils-1.3.jar;..\lib\commons-lang-2.5.jar;..\lib\commons-logging-1.1.1.jar;..\lib\commons-pool-1.5.4.jar;..\lib\jdom.jar;..\lib\log4j-1.2.16.jar;..\lib\mysql-connector-java-5.1.12-bin.jar gui.Servidor 
+pause

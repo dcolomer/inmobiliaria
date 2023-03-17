@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<toc version="1.0"> 
+	<tocitem text="INMOB10"    target="intro">
+    	<tocitem text="Descripcion de la Base de Datos"    target="descBD"/>
+        <tocitem text="Descripcion de la aplicacion"    target="descApp"/>
+        <tocitem text="Descripcion de la arquitectura"    target="arquitectura"/>
+    </tocitem>
+</toc>

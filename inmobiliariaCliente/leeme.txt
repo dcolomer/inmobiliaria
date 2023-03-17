@@ -1,0 +1,47 @@
+INSTRUCCIONES PARA LA EJECUCIÓN
+
+1) Programa cliente
+----------------------
+
+1.1) Configuración previa
+----------------------------
+
+Añadimos la siguiente línea al archivo 'host' sito en C:\WINDOWS\system32\drivers\etc:
+
+192.168.1.12	www.servidorlogico.org
+
+donde 192.168.1.12 es la dirección IP donde se está ejecutando el programa servidor
+
+Establecer la dirección IP de la aplicación servidora y del RDBMS
+----------------------------------------------------------------------
+
+El cliente necesita saber en qué IP se encuentra el programa servidor y en qué IP se encuentra el sistema
+gestor de bases de datos, así como la información de conexión con la BD. La conexión con la BD es necesaria
+porque los formularios de gestión acceden directamente a la base de datos utilizado ResultSet updatables. Esto
+sólo se ha hecho para ilustrar su uso, por lo que en una aplicación profesinal tendríamos que accceder a los
+datos a traves de los métodos de la capa de negocio, tal y como se muestra en los formularios de pagos.
+
+Por tanto, en el directorio inmobiliariaCliente\bin\ tenemos el fichero 'host.properties', cuyo contenido es como sigue:
+
+host.properties
+-----------------
+
+remoteip=www.servidorlogico.org
+rdbmsip=www.servidorlogico.org
+rdbmsschema=inmobiliaria
+rdbmsuser=root
+rdbmspwd=root
+
+
+1.2 Arranque del programa cliente
+-----------------------------------
+En el directorio inmobiliariaCliente\bin tenemos el fichero 'run.bat'. Ejecutaremos este fichero para 
+iniciar la aplicación cliente.
+
+Su contenido es el siguiente:
+
+run.bat
+-------
+
+java -cp .;..\lib\stub.jar;..\lib\appFramework-1.0.jar;..\lib\lucene-core-3.0.1.jar;..\lib\lucene-swing-3.0.1.jar;..\lib\commons-logging-1.1.1.jar;..\lib\jnlp.jar;..\lib\log4j-1.2.16.jar;..\lib\mysql-connector-java-5.1.12-bin.jar;..\lib\bsh-2.0b4.jar;..\lib\commons-beanutils-1.8.0.jar;..\lib\commons-collections-2.1.1.jar;..\lib\commons-digester-1.7.jar;..\lib\commons-javaflow-20060411.jar;..\lib\iText-2.1.7.jar;..\lib\jasperreports-3.7.6.jar;..\lib\groovy-all-1.7.5.jar gui.FormPrincipal 
+pause

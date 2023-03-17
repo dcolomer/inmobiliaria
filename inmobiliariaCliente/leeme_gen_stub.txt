@@ -1,0 +1,10 @@
+La siguiente informaci�n aplica a tiempo de desarrollo/mantenimiento.
+
+-Para generar los 'stubs' del cliente nos dirigimos al directorio inmobiliariaCliente\bin y ejecutamos:
+
+wsimport -p ws http://www.servidorlogico.org:8080/WebServices/inmob?wsdl
+
+-Para generar un jar con los stubs, que despues podemos agregar al proyecto cliente como cualquier otra libreria,
+desde el directorio inmobiliariaCliente\bin hacemos:
+
+jar -cvf stub.jar ws

@@ -15,6 +15,10 @@ Trabajamos con la base de datos inmobiliaria, que tiene las siguientes tablas:
 | PEDIDO     | Guarda los términos referentes a los alquileres de los pisos.                                           |
 | CAJA       | Lleva el registro de todas las transferencias monetarias entre la agencia, el cliente y el propietario. |
 
+# Diagrama E/R (Entidad/Relación)
+
+ ![Diagrama entidad/relacion](https://github.com/dcolomer/inmobiliaria/blob/main/imagenes/image001.png)
+
 ## Descripción de la base de datos
 
 A continuación se describe qué datos contiene cada una de las tablas:
@@ -78,6 +82,3 @@ A continuación se describe qué datos contiene cada una de las tablas:
 | D         | La agencia paga al propietario del piso el importe del alquiler menos el porcentaje de la comisión que se gana la agencia. No se puede pagar al propietario hasta que el cliente haya pagado la totalidad del pedido (operación tipo B). El importe para este tipo de pedidos se registrará en negativo.              |
 | E         | Los pedidos con este código no reflejan ningún pago, pues simulan el balance final del día en contabilidad. Una vez que se registra un pedido con este código de operación no se permite ninguna otra operación de caja para esa fecha.                                       |
 
-Diagrama E/R (Entidad/Relación)
-
- 
